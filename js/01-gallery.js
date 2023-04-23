@@ -1,6 +1,7 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
-import * as basicLightbox from "basiclightbox";
+// import * as basicLightbox from "basiclightbox";
+// const basicLightbox = require("basiclightbox");
 
 // console.log(galleryItems);
 
@@ -26,14 +27,44 @@ galleryItems.forEach(function (galleryItem) {
 
 listImg.append(fragment);
 
-listImg.addEventListener("click", (event) => {
+listImg.addEventListener("click", createBasicLightBox);
+
+function createBasicLightBox(event) {
+  // console.dir(event.target.src);
   event.target.src = event.target.dataset.source;
-  console.dir(event.target);
-  const instance = basicLightbox.create(`
-    <img src="assets/images/image.png" width="800" height="600">
+  // console.dir(event.target.src);
+  }
+const instance = basicLightbox.create(`
+    <div class="modal">
+        <p> Your first lightbox with just a few lines of code. Yes, it's really that simple.</p>
+    </div>
 `);
-  instance.show();
-});
+// instance.show();
+
+
+
+
+
+function showBasicLightBox() {}
+
+// const content = document.createElement("div");
+
+// const h1 = document.createElement("h1");
+// const p = document.createElement("p");
+
+// h1.textContent = "Create element";
+// p.textContent = "Create elements dynamicly and use them in your lightbox.";
+
+// content.appendChild(h1);
+// content.appendChild(p);
+
+// const instance = basicLightbox.create(content);
+
+// document.querySelector("button.create").onclick = instance.show;
+
+//
+
+// 
 
 /*
 1. Створити модальне вікно яке буде відкриватися при кліку на кнопку всередині тега body Модальне вікно має закриватися при кліку на напівпрозорий оверлей, та на іконку хрестика всередині модалки
