@@ -33,38 +33,51 @@ function createBasicLightBox(event) {
   // console.dir(event.target.src);
   event.target.src = event.target.dataset.source;
   // console.dir(event.target.src);
-  }
-const instance = basicLightbox.create(`
+  showBasicLightBox(event.target.src);
+}
+
+function showBasicLightBox(img) {
+  const instance = basicLightbox.create(`
     <div class="modal">
-        <p> Your first lightbox with just a few lines of code. Yes, it's really that simple.</p>
+        <img src="${img}" width="1100" height="700" >
     </div>
 `);
-// instance.show();
+  instance.show();
+  closeModalOnESC();
+}
 
+window.addEventListener("keydown", closeModalOnESC);
 
+function closeModalOnESC(e) {
+  return (
+    !1 !== n.onClose(u) &&
+    (function (e, n) {
+      return (
+        e.classList.remove("basicLightbox--visible"),
+        setTimeout(function () {
+          return !1 === i(e) || e.parentElement.removeChild(e), n();
+        }, 410),
+        !0
+      );
+    })(t, function () {
+      if ("function" == typeof e) return e(u);
+    })
+  );
+  
+  
+  
+  
+  // if (event.code === "Escape") {
+  //   event.classList.remove("basicLightbox--visible"),
+  //     setTimeout(function () {
+  //       return !1 === i(event) || event.parentElement.removeChild(event), n();
+  //     }, 410),
+  //     !0;
 
-
-
-function showBasicLightBox() {}
-
-// const content = document.createElement("div");
-
-// const h1 = document.createElement("h1");
-// const p = document.createElement("p");
-
-// h1.textContent = "Create element";
-// p.textContent = "Create elements dynamicly and use them in your lightbox.";
-
-// content.appendChild(h1);
-// content.appendChild(p);
-
-// const instance = basicLightbox.create(content);
-
-// document.querySelector("button.create").onclick = instance.show;
-
-//
-
-// 
+  //   // document.body.classList.remove(openClass);
+  //   // console.log("Натиснули Escape");
+  // }
+}
 
 /*
 1. Створити модальне вікно яке буде відкриватися при кліку на кнопку всередині тега body Модальне вікно має закриватися при кліку на напівпрозорий оверлей, та на іконку хрестика всередині модалки
