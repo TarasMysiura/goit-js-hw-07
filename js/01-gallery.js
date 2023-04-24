@@ -7,25 +7,40 @@ import { galleryItems } from "./gallery-items.js";
 
 const listImg = document.querySelector(".gallery");
 
-const fragment = document.createDocumentFragment();
+// const fragment = document.createDocumentFragment();
 
-galleryItems.forEach(function (galleryItem) {
-  const liEl = document.createElement("li");
-  liEl.className = "gallery__item";
-  const aEl = document.createElement("a");
-  aEl.className = "gallery__link";
-  const imgEl = document.createElement("img");
-  imgEl.className = "gallery__image";
-  imgEl.src = galleryItem.preview;
-  imgEl.dataset.source = galleryItem.original;
-  imgEl.alt = galleryItem.description;
+// galleryItems.forEach(function (galleryItem) {
+//   const liEl = document.createElement("li");
+//   liEl.className = "gallery__item";
+//   const aEl = document.createElement("a");
+//   aEl.className = "gallery__link";
+//   const imgEl = document.createElement("img");
+//   imgEl.className = "gallery__image";
+//   imgEl.src = galleryItem.preview;
+//   imgEl.dataset.source = galleryItem.original;
+//   imgEl.alt = galleryItem.description;
 
-  aEl.appendChild(imgEl);
-  liEl.appendChild(aEl);
-  fragment.appendChild(liEl);
-});
+//   aEl.appendChild(imgEl);
+//   liEl.appendChild(aEl);
+//   fragment.appendChild(liEl);
+// });
 
-listImg.append(fragment);
+// listImg.append(fragment);
+// const listImgMarcup = createListImg(galleryItems)
+
+listImg.insertAdjacentHTML("beforeend", createListImg(galleryItems));
+
+function createListImg() {
+  return galleryItems.map(({ preview, original, description }) => {
+    return `<li class="gallery__item">
+            <a class="gallery__link">
+            <img class="gallery__image"
+                src="${preview}" 
+                data-source="${original}"
+                alt="${description}" />
+            </a></li>`;
+  }).join('');
+}
 
 listImg.addEventListener("click", createBasicLightBox);
 
