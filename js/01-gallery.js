@@ -31,23 +31,23 @@ const listImg = document.querySelector(".gallery");
 listImg.insertAdjacentHTML("beforeend", createListImg(galleryItems));
 
 function createListImg() {
-  return galleryItems.map(({ preview, original, description }) => {
-    return `<li class="gallery__item">
+  return galleryItems
+    .map(({ preview, original, description }) => {
+      return `<li class="gallery__item">
             <a class="gallery__link">
             <img class="gallery__image"
                 src="${preview}" 
                 data-source="${original}"
                 alt="${description}" />
             </a></li>`;
-  }).join('');
+    })
+    .join("");
 }
 
 listImg.addEventListener("click", createBasicLightBox);
 
 function createBasicLightBox(event) {
-  // console.dir(event.target.src);
   event.target.src = event.target.dataset.source;
-  // console.dir(event.target.src);
   showBasicLightBox(event.target.src);
 }
 
@@ -57,11 +57,52 @@ function showBasicLightBox(img) {
         <img src="${img}" width="1100" height="700" >
     </div>
   `);
-  instance.show();
-  window.addEventListener("keydown", (event) => {
-    if (event.code === "Escape") {
-      instance.close(() => removeEventListener);
-      // console.log("Натиснули Escape");
-    }
-  });
+  instance.show(() => addListener());
+  // instance.close(() =>
+  //   )
+  // );
 }
+function addListener() {
+  window.addEventListener("keydown", onEscPress(instance));
+}
+const modalElement = document.querySelector(".modal");
+modalElement.addEventListener("click", () => {
+  instance.close();
+});
+
+// function modalOpen() {
+//   document.body.classList.add(openClass);
+//   window.addEventListener("keydown", closeModalOnESC);
+// }
+
+// function modalClose() {
+//   document.body.classList.remove(openClass);
+//   window.removeEventListener("keydown", closeModalOnESC);
+// }
+
+// function closeModalOnESC(event) {
+//   if (event.code === "Escape") {
+//     modalClose();
+//     console.log("Натиснули Escape");
+//   }
+// }
+
+// function closeBasicLightBoxOnExp(img) {
+//   const instance = basicLightbox.create();
+// }
+
+// window.addEventListener("keydown", (event) => {
+//   if (event.code === "Escape") {
+//     instance.close(() => removeEventListener);
+//     console.log("Натиснули Escape");
+//   }
+// });
+const ESC_KEYCODE = "Escape";
+const onEscPress = (evt, instance) => {
+  if (evt.code === ESC_KEYCODE) {
+    instance.close(() => removeListener);
+  }
+  const removeListener = window.removeEventListener("keydown", (evt) =>
+    onEscPress(evt, instance)
+  );
+};
